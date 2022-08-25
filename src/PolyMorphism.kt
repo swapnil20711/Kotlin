@@ -4,12 +4,30 @@ fun main() {
     val shapeCircle: Shape = Circle(5.0)
     val shapeSquare: Shape = Square(5.0)
     val shapeTriangle: Shape = Triangle(5.0, 10.0)
-    val list = arrayListOf<Shape>(shapeSquare, shapeCircle, shapeTriangle)
-    calculateAreas(list)
-    dragObjects(list)
+    val shapesList = arrayListOf(shapeSquare, shapeCircle, shapeTriangle)
+    calculateAreas(shapesList)
+    dragObjects(shapesList)
+    val draggables = arrayListOf(shapeSquare, shapeCircle, shapeTriangle, Player("swapnil"))
+    for (draggable in draggables) {
+        when (draggable) {
+            /*Type checking using is operator
+            * */
+            is Circle ->
+                /*Compiler smart casted it automatically*/
+                draggable.test2()
+            is Triangle ->
+                draggable.testing()
+            is Square ->
+                println(draggable.side)
+            else ->
+                /* We manually typecasted it*/
+                (draggable as Player).sayMyName()
+
+        }
+    }
 }
 
-fun calculateAreas(list: List<Shape>) {
+fun calculateAreas(list: ArrayList<Shape>) {
     for (shape in list) {
         println(shape.area())
     }
@@ -36,6 +54,10 @@ open class Circle(private val radius: Double) : Shape() {
     override fun drag() {
         println("Circle is dragging")
     }
+
+    fun test2() {
+
+    }
 }
 
 open class Square(val side: Double) : Shape() {
@@ -55,6 +77,20 @@ open class Triangle(val base: Double, val height: Double) : Shape() {
 
     override fun drag() {
         println("Triangle is dragging")
+    }
+
+    fun testing() {
+        println("test")
+    }
+}
+
+class Player(val name: String) : Draggable {
+    override fun drag() {
+        println("Called from player class")
+    }
+
+    fun sayMyName() {
+        println("My name is $name")
     }
 }
 
