@@ -1,5 +1,5 @@
 fun main() {
-    println(add(1, 12))
+    println(sum(1, 12))
     println(printMessage(1))
     isEven(5)
 }
@@ -15,7 +15,7 @@ fun printMessage(count: Int = 2) {
 /*
 * Inline functions in kotlin
 * */
-fun add(num1: Int, num2: Int) = num1 + num2
+private fun sum(num1: Int, num2: Int) = num1 + num2
 
 fun isEven(numberToCheck: Int) {
     val result = if (numberToCheck % 2 == 0) "Even" else "Odd"
